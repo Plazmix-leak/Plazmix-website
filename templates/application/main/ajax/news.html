@@ -1,0 +1,31 @@
+{% for post in posts %}
+          <div class="col-md-4">
+            <div class="card card-blog">
+                <div class="card-body">
+                    <h6 class="card-category text-success">{{ post.author }}</h6>
+                <h5 class="card-title">
+                  <a href="{{ post.more_link }}">{{ post.parse_title }}</a>
+                </h5>
+                <p class="text-black-50">
+                  {{ post.parse_short_text }} <br>
+                </p>
+{#                <hr>#}
+{#                <div class="card-footer">#}
+{#                  <div class="author">#}
+{#                    <a href="#{{ post.author }}">#}
+{#                      <span>News</span>#}
+{#                    </a>#}
+{#                  </div>#}
+{#                  <div class="stats">#}
+{#                    <i class="far fa-clock" aria-hidden="true"></i> {% if post.read_time <= 0 %}Меньше минуты{% else %}{{ post.read_time }} мин.{% endif %}#}
+{#                  </div>#}
+{#                </div>#}
+                    {% if post.more_link %}
+                    <div class="card-footer">
+                  <a href="{{ post.more_link }}" class="btn btn-danger btn-round">Подробнее</a>
+                </div>
+                    {% endif %}
+              </div>
+            </div>
+          </div>
+{% endfor %}

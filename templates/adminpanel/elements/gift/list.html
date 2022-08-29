@@ -1,0 +1,56 @@
+{% extends 'adminpanel/extend.html' %}
+{% block title %}Список подарков{% endblock %}
+{% block  body %}
+    <div class="content">
+        {% include 'includes/flash.html' %}
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                <div class="text-center">
+                    <table class="table">
+                    <thead class="">
+                      <th>
+                        Название
+                      </th>
+                      <th>
+                        Активность
+                      </th>
+                      <th>
+                        Использований
+                      </th>
+                      <th>
+                        Ссылка
+                      </th>
+                      <th>
+                        Действие
+                      </th>
+                    </thead>
+                    <tbody>
+                    {% for gift in gifts %}
+                      <tr>
+                       <td>
+                          {{ gift.name }}
+                        </td>
+                       <td>
+                          {{ gift.impl.active_status }}
+                        </td>
+                       <td>
+                          {{ gift.usage }}
+                        </td>
+                        <td>
+                          <a class="btn btn-link btn-outline-info" href="{{ url_for('panel.view_gift_link', gift_uid=gift.uuid) }}">Показать ссылку</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-link btn-outline-info" href="{{ url_for('panel.gift_edit', gift_uri=gift.uuid, gift_type=gift.technical_name) }}">Редактировать</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% import 'macros/gift.html' as gift_helper %}
+{% if gifts %}
+    <ul class="list-unstyled follows">
+        {% for gift in gifts %}
+            {{ gift_helper.gift_build(gift, user) }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3 class="text-muted">Нет подарков :(</h3>
+{% endif %}

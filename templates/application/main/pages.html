@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block body %}
+  <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/9.png') }}?v=1');">
+  {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Информация</h1>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+              {% for page in pages %}
+                  {% set content = page.current_version %}
+              <div class="col-md-4">
+                <div class="card card-blog">
+                    <div class="card-body">
+                        <h6 class="card-category text-center text-black-50">{{ content.title }}</h6>
+                        <br>
+                        <div class="card-footer text-center">
+                      <a href="{{ url_for('main.page', page_uri=page.uri) }}" class="btn btn-outline-primary btn-round btn-block">Открыть</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    {% endfor %}
+          </div>
+      </div>
+
+      </div>
+    </div>
+{% endblock %}

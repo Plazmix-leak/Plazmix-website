@@ -1,0 +1,156 @@
+{% extends 'main.html' %}
+{% import 'macros/dev.html' as dev_tool %}
+{% import 'macros/user.html' as user_tool %}
+{% block body %}
+  <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/1.png') }}');">
+  {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>{{ team.name }}</h1>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+          <div class="col-md-4 col-sm-6">
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  {{ dev_tool.team_title(team) }}
+                </h4>
+                <div class="card-description">
+                    <h6>Статус: {{ team.level }}</h6>
+                </div>
+                  <div class="card-footer">
+                      <p>дата создания: {{ team.create_date }}</p>
+                  </div>
+{#                <div class="card-footer">#}
+{#                  <a href="{{ url_for('wallet.replenishment') }}" class="btn btn-danger btn-round">Пополнить</a>#}
+{#                </div>#}
+              </div>
+
+            </div>
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  Создать приложение
+                </h4>
+                  <br>
+                  <div class="form-group">
+                  <a class="btn btn-outline-info btn-block" href="{{ url_for('developers.create_api_application', team_uuid=team.uuid) }}">Api приложение</a>
+                      </div>
+                  <div class="form-group">
+                  <a class="btn btn-outline-primary btn-block" href="{{ url_for('developers.create_oauth_application', team_uuid=team.uuid) }}">Oauth приложение</a>
+                      </div>
+                </div>
+              </div>
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  Пригласить пользователей
+                </h4>
+                  <br>
+                  Скоро...
+                </div>
+              </div>
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  Участники команды
+                </h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Пользователь</th>
+                    <th>Дейстивя</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for member in team.members %}
+                  <tr>
+                    <td>{{ user_tool.onle_line(member.user) }}</td>
+                    <td>Скоро...</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+                </div>
+              </div>
+              <br>
+
+          </div>
+              <div class="col-md-8 col-sm-6">
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                    Приложения API
+                </h4>
+                <div class="card-description">
+                  <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Название</th>
+                    <th>Дата создания</th>
+                    <th>Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for app_api in team.api_application %}
+                  <tr>
+                    <td><h5>{{ app_api.name }}</h5></td>
+                    <td><h5>{{ app_api.create_date }}</h5></td>
+                    <td><a href="{{ url_for('developers.info_application_api', team_uuid=team.uuid, app_uuid=app_api.uuid) }}" class="btn btn-link btn-info"><i class="fad fa-info fa-2x"></i></a>
+                    <a href="{{ url_for('developers.edit_application_api', team_uuid=team.uuid, app_uuid=app_api.uuid) }}" class="btn btn-link btn-warning"><i class="fad fa-edit fa-2x"></i></a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+                </div>
+              </div>
+
+            </div>
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                    Приложения OAuth
+                </h4>
+                <div class="card-description">
+                  <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Название</th>
+                    <th>Дата создания</th>
+                    <th>Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for oauth_app in team.oauth_application %}
+                  <tr>
+                    <td><h5>{{ oauth_app.name }}</h5></td>
+                      <td><h5>{{ oauth_app.create_date }}</h5></td>
+                    <td><a href="{{ url_for('developers.info_application_oauth', team_uuid=team.uuid, oauth_uuid=oauth_app.client_id) }}" class="btn btn-link btn-info"><i class="fad fa-info fa-2x"></i></a>
+                    <a href="{{ url_for('developers.edit_application_oauth', team_uuid=team.uuid, oauth_uuid=oauth_app.client_id) }}"" class="btn btn-link btn-warning"><i class="fad fa-edit fa-2x"></i></a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          </div>
+      </div>
+
+      </div>
+    </div>
+{% endblock %}

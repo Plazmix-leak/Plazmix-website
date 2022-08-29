@@ -1,0 +1,91 @@
+{% extends 'main.html' %}
+{% block title %}Мои заявки{% endblock %}
+{% block body %}
+    <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/25.png') }}');">
+    {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Мои заявки</h1>
+          <br>
+          {% for form in forms %}
+              <a class="btn btn-default btn-round" style="background-color: #66615b96;" href="{{ url_for('team.form', technical_name=form.technical_name) }}">{{ form.label }}</a>
+          {% endfor %}
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+            <h4 class="title"><strong>Мои заявки</strong><br></h4>
+            <div class="table-responsive">
+            {% if applications %}
+            <ul class="list-unstyled follows">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th>Тип</th>
+                    <th>Дата подачи</th>
+                    <th>Комментарий</th>
+                    <th class="text-right">Статус</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for model, base in applications %}
+                  <tr>
+                    <td class="text-center">{{ model.id }}</td>
+                    <td>{{ base.label }}</td>
+                    <td>{{ model.human_date }}</td>
+                    <td>{{ model.processed_comment }}</td>
+                    <td class="text-right">
+                        {% set model_status = model.status %}
+                                    {% if model_status.value == "WAIT" or model_status.value == "CHECK" %}
+                                        <p class="text-warning"><i class="fad fa-clock fa-2x"></i></p>
+                                    {% elif model_status.value == "ACCEPTED" %}
+                                        <p class="text-success"><i class="fad fa-check fa-2x"></i></p>
+                                    {% else %}
+                                        <p class="text-danger"><i class="fad fa-ban fa-2x"></i></p>
+                                    {% endif %}
+
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+{#                {% for model, base in applications %}#}
+{#                    <li>#}
+{#                    <div class="row">#}
+{#                        <div class="col-md-7 col-7">#}
+{#                            <h6>{{ base.label }} <br /><small>Дата подачи: {{ model.human_date }}</small></h6>#}
+{#                            {% if model.processed_comment %}#}
+{#                            <br>#}
+{#                            <p>{{ model.processed_comment }}</p>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                        <div class="col-md-5 col-4">#}
+{#                            {% set model_status = model.status %}#}
+{#                                    {% if model_status.value == "WAIT" %}#}
+{#                                        <p class="text-info"> <i class="fad fa-clock fa-2x"></i></p>#}
+{#                                    {% elif model_status.value == "ACCEPTED" %}#}
+{#                                    <h5 class="text-info">Принято</h5>#}
+{#                                    {% else %}#}
+{#                                    <h5 class="text-danger">Отказано</h5>#}
+{#                                    {% endif %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </li>#}
+{#                    <hr />#}
+{#                {% endfor %}#}
+            </ul>
+            {% else %}
+            <center><h6>Нет заявок</h6></center>
+            {% endif %}
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+{% endblock %}

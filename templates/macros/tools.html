@@ -1,0 +1,15 @@
+{% macro service_to_icon(service, icon_size = "fa-1x") %}
+    {% if service.value == "vk" %}
+    <i style="color: #2a5788" class="fab fa-vk {{ icon_size }}"></i>
+    {% elif service.value == "discord" %}
+    <i style="color: #2a5788" class="fab fa-discord {{ icon_size }}"></i>
+    {% endif %}
+{% endmacro %}
+
+{% macro object_to_icon(name, icon_size = "fa-1x") %}
+    {% if name == "vk" %}
+    <i style="color: #2a5788" class="fab fa-vk {{ icon_size }}"></i>
+    {% elif name == "discord" %}
+    <i style="color: #2a5788" class="fab fa-discord {{ icon_size }}"></i>
+    {% endif %}
+{% endmacro %}

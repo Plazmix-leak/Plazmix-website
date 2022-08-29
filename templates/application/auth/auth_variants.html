@@ -1,0 +1,4 @@
+{% import 'macros/tools.html' as tool %}
+{% for service in services %}
+<a class="btn btn-default btn-link btn-just-icon" href="{{ url_for('profile.ext_authorize_service', service_name=service.value) }}">{{ tool.service_to_icon(service, icon_size="fa-2x") }}</a>
+{% endfor %}

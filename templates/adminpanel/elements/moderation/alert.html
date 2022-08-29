@@ -1,0 +1,88 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'macros/form_builder.html' as form_tools %}
+{% import 'adminpanel/macros/moderator/alert.html' as moderator_tools %}
+{% block title %}Просмотр варна #{{ alert.id }}{% endblock %}
+{% block  body %}
+    <div class="content">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                  <table class="table">
+                      <tr>
+                        <td>
+                          ID:
+                        </td>
+                        <td>
+                          {{ alert.id }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Дата выдачи
+                        </td>
+                        <td>
+                          {{ alert.create_date }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Тип:
+                        </td>
+                        <td>
+                            {{ alert.type_rus }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Статус:
+                        </td>
+                        <td>
+                            {% if alert.is_active %}
+                            <a class="text-success">Активен</a>
+                            {% else %}
+                            Не активен
+                            {% endif %}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Выдал:
+                        </td>
+                        <td>
+                            {{ user_tools.onle_line(alert.author_user) }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Модератор:
+                        </td>
+                        <td>
+                            {{ user_tools.onle_line(alert.to_user) }}
+                        </td>
+                      </tr>
+                  </table>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Варн #{{ alert.id }}</h5>
+              </div>
+              <div class="card-body">
+                {{ alert.reason|safe }}
+              </div>
+                {% if permissions.check(permissions.ADD_MODERATOR_ALERT, user) %}
+                <div class="card-footer text-center">
+                  {{ form_tools.build(form) }}
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

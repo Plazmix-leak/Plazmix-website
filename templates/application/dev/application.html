@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+{% block title %}Developer Application{% endblock %}
+{% import 'macros/form_builder.html' as form_tools %}
+{% block body %}
+    <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/15.png') }}');">
+    {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Developer Application</h1>
+          <br>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+{#            <h4 class="title"><strong>Мои заявки</strong><br></h4>#}
+            <div class="table-responsive">
+            {% if application %}
+            <ul class="list-unstyled follows">
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="text-center">Application UUID</td>
+                    <td>{{ application.uuid }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Partner status</td>
+                    <td>{{ application.verification }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Access Level</td>
+                    <td>{{ application.access_level }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Day limit</td>
+                    <td>{{ application.limit }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Token</td>
+                    <td>{{ application.token }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ul>
+            {% else %}
+                <center>
+            {{ form_tools.build(from_create) }}
+                </center>
+            {% endif %}
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+{% endblock %}

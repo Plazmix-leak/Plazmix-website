@@ -1,0 +1,44 @@
+{% import 'macros/badge.html' as badge %}
+{% import 'macros/tools.html' as tool %}
+
+
+{% macro profile_card(profile) %}
+   <div class="col-md-3 col-sm-6">
+            <div class="card card-profile section-gray">
+              <div class="card-cover">
+              </div>
+              <div class="card-avatar border-white">
+                <a href="{{ url_for('profile.user_profile', user_uuid=profile.uuid) }}">
+                  <img src="{{ profile.get_avatar(150) }}" />
+                </a>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title"><strong>{{ profile.bukkit.nickname }}{{ badge.profile_badges(profile) }}</strong></h4>
+              {% set _profile_group = profile.permission_group  %}
+                <h6 class="card-category" style="color:{{ _profile_group.html_color }};">{{ _profile_group.name }}</h6>
+              {% set online_status, online_text = profile.get_online() %}
+              {% if online_status %}
+                <h7 class="card-description" style="color: green;">{{ online_text }}</h7>
+              {% else %}
+              <h7 class="card-description" style="color: gray;">{{ online_text }}</h7>
+              {% endif %}
+                <div class="card-footer text-center">
+                    {% for ext_service in profile.ext_services %}
+                {% if ext_service.visible %}
+                    <a class="btn btn-link btn-info btn-sm" {% if ext_service.service_name == 'discord' %}onclick="Swal.fire('{{ ext_service.user_nickname_service }}');"{% else %}href="https://vk.com/id{{ ext_service.user_id_service }}"{% endif %}>{{ tool.object_to_icon(ext_service.service_name, icon_size='fa-3x') }}</a>
+                {% endif %}
+              {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+{% endmacro %}
+
+{% macro onle_line(profile) %}
+<a style="color:{{ profile.permission_group.html_color }}" href="{{ url_for('profile.user_profile', user_uuid=profile.uuid) }}">{{ profile.bukkit.nickname }}</a>{{ badge.profile_badges(profile) }}
+{% endmacro %}
+
+{% macro online_status(profile) %}
+    {% set online_status, online_text = profile.get_online() %}
+    <small {% if online_status %} style="color: #1c7430;" {% endif %}>{{ online_text }}</small>
+{% endmacro %}

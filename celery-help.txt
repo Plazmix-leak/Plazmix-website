@@ -1,0 +1,2 @@
+celery -A app.task.bukkit_server worker -Q bukkit --loglevel=info
+celery -A app.task beat --loglevel=info

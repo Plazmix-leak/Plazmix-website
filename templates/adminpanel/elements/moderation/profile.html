@@ -1,0 +1,64 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'adminpanel/macros/moderator/alert.html' as moderator_tools %}
+{% block title %}Профиль модератора{% endblock %}
+{% block  body %}
+    <div class="content">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+              </div>
+              <div class="card-body">
+                <div class="author">
+                  <a href="#">
+                    <img class="avatar border-gray" src="{{ moderator.get_avatar(150) }}" alt="Аватар">
+                    <h5 class="title">{{ user_tools.onle_line(moderator) }}</h5>
+                  </a>
+                  <p class="description">
+                    {{ moderator.permission_group.name }}
+                  </p>
+                </div>
+              </div>
+              <div class="card-footer">
+                <hr>
+                <div class="button-container">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-6 ml-auto">
+                      <h5>{{ warnings.__len__() }}<br><small>Предупреждений</small></h5>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-6 ml-auto mr-auto">
+                      <h5>{{ reprimand.__len__() }}<br><small>Выговоры</small></h5>
+                    </div>
+                      {% if permissions.check(permissions.ADD_MODERATOR_ALERT, user) %}
+                          <br>
+                      <a class="btn btn-primary btn-block" href="{{ url_for('panel.moderation_new_alert', moderator_uuid=moderator.uuid) }}">Выдать варн</a>
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Предупреждения</h5>
+              </div>
+              <div class="card-body">
+                  {{ moderator_tools.build_tabel(warnings) }}
+
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Выговоры</h5>
+              </div>
+              <div class="card-body">
+                  {{ moderator_tools.build_tabel(reprimand) }}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

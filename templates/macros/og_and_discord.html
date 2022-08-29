@@ -1,0 +1,17 @@
+{% macro build_og_meta(title="Plazmix Network", og_type="website", image=none, description="Plazmix - русскоязычный проект Minecraft, предлагающий своим игрокам большое количество качественный и увлекающих мини-игр. IP: mc.plazmix.net (1.8.x - новейшая)") %}
+    {% if not image %}
+        {% set image = url_for('static', filename='img/og/og_default.png') %}
+    {% endif %}
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:type" content="{{ og_type }}" />
+    <meta property="og:url" content= "{{ request.url }}" />
+    <meta property="og:image" content="{{ image }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Plazmix Network" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ image }}">
+    <meta name="twitter:image:src" content="{{ image }}">
+    <meta name="twitter:description" content="{{ description }}">
+     <meta name="theme-color" content="#6600cc">
+{% endmacro %}

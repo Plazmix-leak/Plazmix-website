@@ -1,0 +1,103 @@
+{% extends 'main.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block body %}
+  <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/19.png') }}');">
+  {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Plazmix Wallet</h1>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+          <div class="col-md-4 col-sm-6">
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  Текущий баланс
+                </h4>
+                <div class="card-description">
+                  <h3 style="color: green;">{{ user.money_count }} ₽</h3>
+                </div>
+{#                <div class="card-footer">#}
+{#                  <a href="{{ url_for('wallet.replenishment') }}" class="btn btn-danger btn-round">Пополнить</a>#}
+{#                </div>#}
+              </div>
+
+            </div>
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  Пополнение
+                </h4>
+                  <br>
+                  {{ form_util.build(replenish_from, hidden_br=true) }}
+                </div>
+              </div>
+              <br>
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  Перевод
+                </h4>
+                  <br>
+                  {{ form_util.build(transfer_from, hidden_br=true) }}
+                </div>
+              </div>
+
+{#            </div>#}
+{#              <div class="card card-blog">#}
+{#              <div class="card-body text-center">#}
+{#                <div class="card-description">#}
+{#                  <h4 style="color: black">Ваш Id для переводов: <a style="color: #1e7e34;"> #{{ user.db.id }}</a></h4>#}
+{#                </div>#}
+{#              </div>#}
+{##}
+{#            </div>#}
+{#          </div>#}
+          </div>
+                        <div class="col-md-8 col-sm-6">
+              <div class="card card-blog">
+              <div class="card-body text-center">
+                <h4 class="card-title">
+                  История
+                </h4>
+                <div class="card-description">
+                  <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th>Описание</th>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for log in pay_logs %}
+                  <tr>
+                    <td class="text-center">{{ log.id }}</td>
+                    <td>{{ log.comment }}</td>
+                    <td>{{ log.human_date }}</td>
+                    <td>{% if log.amount > 0 %}<a style="color:green;"> +{% else %}<a style="color:red;"> {% endif %}{{ log.amount }}</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          </div>
+      </div>
+
+      </div>
+    </div>
+{% endblock %}

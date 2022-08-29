@@ -1,0 +1,54 @@
+{% extends 'adminpanel/extend.html' %}
+{% block title %}Статические страницы{% endblock %}
+{% block  body %}
+    <div class="content">
+        {% include 'includes/flash.html' %}
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                <div class="text-center">
+                    <table class="table">
+                    <thead class="">
+                      <th>
+                        Id
+                      </th>
+                      <th>
+                        url
+                      </th>
+                      <th>
+                        статус
+                      </th>
+                      <th>
+                        Действие
+                      </th>
+                    </thead>
+                    <tbody>
+                    {% for page in pages %}
+                      <tr>
+                       <td>
+                          {{ page.id }}
+                        </td>
+                        <td>
+                          {{ page.uri }}
+                        </td>
+                        <td>
+                            {% if page.public %}
+                                <p class="text-success">Опубликована</p>
+                            {% else %}
+                            Скрыта
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-link btn-outline-info" target="_blank" href="{{ url_for('panel.page_edit', page_id=page.id) }}">Подробнее</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

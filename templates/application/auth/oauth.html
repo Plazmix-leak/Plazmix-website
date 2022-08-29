@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% import 'macros/dev.html' as dev_tool %}
+{% block title %}Oauth 2{% endblock %}
+{% block body %}
+    <body class="login-page full-screen sidebar-collapse">
+      <div class="wrapper">
+    <div class="page-header" style="background-image: url('{{ background }}');">
+      <div class="filter"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+            <div class="card card-register section-gray" style="color: black;">
+{#              <h3 class="card-title text-uppercase text-dark"></h3>#}
+                {% include 'includes/flash.html' %}
+                <br>
+                    <center><i class="fad fa-cat-space fa-7x" style="color: #9368E9;"></i></center>
+                <br>
+                <h4 class="text-center text-dark">
+                    {{ dev_tool.app_title(app) }}
+                </h4>
+                <br>
+                <p>Приложение {{ app.name }} собирается получить доступ к вашей учётной записи. Ему будет доступно:</p>
+                <p> - Общая информация</p>
+                 {{ form_util.build(form, "register-form", enable_div=true) }}
+            </div>
+          </div>
+        </div>
+        <div class="demo-footer text-center">
+          <h6>&copy; <script>
+              document.write(new Date().getFullYear())
+            </script>, All rights reserved <i class="fa fa-heart heart"></i> by Plazmix Network</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'adminpanel/extend.html' %}
+{% block title %}Аналитика по API{% endblock %}
+{% block  body %}
+
+<div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h4 class="card-title">Колличество запросов за последние 24 часа</h4>
+              </div>
+              <div class="card-body ">
+                  <canvas id="last_hours"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">За вчера</h4>
+                  <a class="card-description" id="comparison_days">загрузка...</a>
+              </div>
+              <div class="card-body ">
+                  <canvas id="yesterday"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">За неделю</h4>
+              </div>
+              <div class="card-body ">
+                  <canvas id="week"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h4 class="card-title">За последние 2 недели</h4>
+                <a class="card-description" id="comparison_week">загрузка...</a>
+              </div>
+              <div class="card-body ">
+                  <canvas id="two_week"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/metric/helpers.js') }}?v=0.0.2"></script>
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/metric/pages/api.js') }}?v=0.0.6"></script>
+{% endblock %}

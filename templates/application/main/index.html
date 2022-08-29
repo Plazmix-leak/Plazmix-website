@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+{% block title %}Главная{% endblock %}
+{% block body %}
+<body class="landing-page sidebar-collapse">
+  <div class="page-header" data-parallax="true" style="background-image: url('{{  url_for('static', filename='img/background/landing/1.png') }}?v=1');">
+      {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <div class="motto">
+          <h1 class="title">Plazmix Network</h1>
+          <h3 class="description">Advanced Minecraft Project<br>Онлайн: <a id="serverOnline">Загрузка...</a> <br>Ip: mc.plazmix.net</h3>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="section text-center landing-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <h2 class="title">Помочь проекту</h2>
+            <h5>Покупая донат, вы помогаете серверу в развитии. Именно после вашей покупки увеличивается онлайн и появляются обновления. Все это благодаря вам!</h5>
+            <br />
+            <a href="{{ url_for('store.index') }}" class="btn btn-danger btn-fill btn-round">Перейти к донату</a>
+          </div>
+        </div>
+        <br /><br />
+    </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="section section-gray section-blog text-center">
+      <div class="container">
+        <div class="row" id="news">
+
+            <div class="col-md-8 ml-auto mr-auto">
+            <h4>Загрузка новостей, немного подождите....</h4>
+                </div>
+    </div><!-- section -->
+  </div>
+    </div>
+        </div>
+  <div class="wrapper">
+    <div class="section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="title">Мы в социальных сетях</h2>
+          </div>
+
+                        <div class="col-md-6 col-sm-6">
+    <iframe src="https://discord.com/widget?id=875484322931556372" width="490" height="650" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+              </div>
+
+                        <div class="col-md-6 col-sm-6">
+                <script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
+
+                <!-- VK Widget -->
+                <div id="vk_groups"></div>
+                <script type="text/javascript">
+                VK.Widgets.Group("vk_groups", {mode: 4, wide: 1, width: "490", height: "650"}, 201104908);
+                </script>
+                        </div>
+                  </div>
+
+
+
+          </div>
+        </div>
+        <br /><br />
+    </div>
+    </div>
+
+    </body>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='js/use/index.js') }}?v=1.0.0" type="text/javascript"></script>
+{% endblock %}

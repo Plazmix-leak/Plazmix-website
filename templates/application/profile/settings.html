@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% import 'macros/tools.html' as tool %}
+{% block title %}Настройки{% endblock %}
+{% block body %}
+<div class="wrapper">
+    <div class="page-header page-header-xs settings-background" style="background-image: url({{  url_for('static', filename='img/background/login/12.png') }});">
+        {% include 'includes/flash.html' %}
+      <div class="filter"></div>
+    </div>
+    <div class="profile-content section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+              <label>Настройки</label>
+              <ul class="notifications">
+                <li class="notification-item">
+                  <div class="form-group">
+                    <label>Связанные аккаунты</label>
+                    {%  for service, account_info in accounts.items() %}
+                      <h5>{{ tool.service_to_icon(service) }}
+                      {% if account_info %}
+                      {{ account_info.user_nickname_service }}<a class="btn btn-link btn-info btn-sm" href="{{ url_for('profile.ext_service_edit', ext_service_id=account_info.id) }}">{% if account_info.visible %}Скрыть{% else %}Сделать видимым{% endif %}</a>
+                      {% endif %}
+                      <a class="btn btn-link btn-info btn-sm" href="{{ url_for('profile.ext_authorize_service', service_name=service.value) }}">{% if account_info %}Изменить{% else %}Привязать{% endif %}</a>
+                        <br>
+                    {% endfor %}
+                  </h5>
+
+                  </div>
+                </li>
+                <li class="notification-item">
+                  <div class="form-group">
+                    <label>Смена почты (текущая: {{ user.email }})</label>
+                    {{ form_util.build(email_form, hidden_br=true) }}
+                  </div>
+                </li>
+                <li class="notification-item">
+                    <div class="form-group">
+                        <label>Смена пароля</label>
+                        {{ form_util.build(password_form, hidden_br=true) }}
+                      </div>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

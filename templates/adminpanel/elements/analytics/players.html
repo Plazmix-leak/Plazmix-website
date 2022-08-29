@@ -1,0 +1,71 @@
+{% extends 'adminpanel/extend.html' %}
+{% block title %}Аналитика по игрокам{% endblock %}
+{% block  body %}
+<div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h4 class="card-title">Колличество аккаунтов</h4>
+              </div>
+              <div class="card-body ">
+                  <canvas id="total_accounts"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h4 class="card-title">Новых аккаунтов за последниe 24 ч.</h4>
+              </div>
+              <div class="card-body ">
+                  <canvas id="new_accounts"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">Входов на сервер</h4>
+                  <a class="card-description" id="joinsComparison">загрузка...</a>
+              </div>
+              <div class="card-body ">
+                  <canvas id="server_join"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">Регистраций за неделю</h4>
+                  <a class="card-description" id="registerComparison">загрузка...</a>
+              </div>
+              <div class="card-body ">
+                  <canvas id="new_accounts_week"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+{#        <div class="row">#}
+{#          <div class="col-md-12">#}
+{#            <div class="card ">#}
+{#              <div class="card-header ">#}
+{#                <h4 class="card-title">Новых аккаунтов за последнюю неделю</h4>#}
+{#                  <a class="card-description" id="comparison_new_accounts_two_week">загрузка...</a>#}
+{#              </div>#}
+{#              <div class="card-body ">#}
+{#                  <canvas id="new_accounts_two_week"></canvas>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+      </div>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/metric/helpers.js') }}?v=0.0.2"></script>
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/metric/pages/players.js') }}?v=0.0.5"></script>
+{% endblock %}

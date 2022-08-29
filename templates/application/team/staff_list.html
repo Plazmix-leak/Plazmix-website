@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% import 'macros/og_and_discord.html' as og %}
+{% block og_elements %}
+    {{ og.build_og_meta(title='Plazmix Staff Team', image=url_for('static', filename='img/background/landing/2.png'),
+            description='Официальный список участников команды проекта Plazmix Network') }}
+{% endblock %}
+{% block body %}
+<div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/9.png') }}');">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Plazmix Staff Team</h1>
+        <h3>Персонал проекта</h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section">
+      <div class="container">
+          {% for group in groups %}
+              <div class="staff">
+              <h3 class="text-black-50">{{ group.value.name }}</h3>
+              <br>
+              <div class="col-md-12 data" id="{{ group.value.get_technical_name }}">
+              <div class="row">
+              <div class="col-md-10 ml-auto mr-auto">
+                  <div class="tab-pane text-center">
+                      <div class="uil-reload-css" style="">
+                        <div></div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          <br>
+          {% endfor %}
+          </div>
+      </div>
+    </div>
+{% endblock %}
+{% block js %}
+<script src="{{  url_for('static', filename='js/use/staff.js') }}?v=0.0.1.1" type="text/javascript"></script>
+{% endblock %}

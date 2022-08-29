@@ -1,0 +1,17 @@
+{% macro build(form, htmL_form_class='form', html_action='', html_method='post', hidden_br=false, enable_div=false) %}
+    <form class="{{ htmL_form_class }}" action="{{ html_action }}" method="{{ html_method }}">
+    {% for element in form %}
+        {% if enable_div %}<div class="form-group">{% endif %}
+        {% if view_filed(element) %}
+        <label style="color: gray">{{ element.label }}</label>
+        {% elif hidden_br %}
+        <br>
+        {% endif %}
+        {% for error in element.errors %}
+            <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+        {{ element }}
+        {% if enable_div %}</div>{% endif %}
+    {% endfor %}
+    </form>
+{% endmacro %}

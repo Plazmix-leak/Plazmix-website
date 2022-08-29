@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% block navabar %}
+{% endblock %}
+{% block body %}
+<div class="header-2">
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+        <div class="container">
+          <a class="navbar-brand mb-0" href="{{ url_for('main.index') }}">Plazmix Development Team</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+            <ul class="navbar-nav ml-auto">
+                <a href="https://api-docs.plazmix.net" class="btn btn-link btn-neutral">API DOC</a>
+              <a href="https://discord.io/plazmixdev" target="_blank" class="btn btn-link btn-neutral"><i class="fab fa-discord fa-2x"></i></a>
+              <a href="https://vk.com/plazmixdevs" target="_blank" class="btn btn-link btn-neutral"><i class="fab fa-vk fa-2x"></i></a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<div class="page-header" style="background-image: url('{{ url_for('static', filename="img/background/login/45.png") }}');">
+        <div class="filter"></div>
+        <div class="content-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="title">Plazmix для разработчиков</h1>
+                <h5 class="description">Привет, рады тебя здесь видеть. На нашем проекте вы можете разрабатывать под наши API. Ниже вы можете создать своё приложение разработчика и найти документацию по нашим WEB API</h5>
+                <br />
+              </div>
+              <div class="col-md-10 ml-auto mr-auto">
+                <div class="card-form-horizontal no-transition">
+                  <div>
+                    <form method="" action="">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <a class="btn btn-success btn-success btn-block" href="https://api-docs.plazmix.net">Документация</a>
+                        </div>
+                        <div class="col-md-6">
+                          <a href="{{ url_for('developers.teams') }}" class="btn btn-danger btn-block">Команды</a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+    </div>
+{% endblock %}

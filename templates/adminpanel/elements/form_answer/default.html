@@ -1,0 +1,131 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block title %}Ответ по форме #{{ form_answer_controller.id }} от {{ author.bukkit.nickname }}{% endblock %}
+{% block  body %}
+{#    <input type="hidden" id="userUuid" value="{{ player.uuid }}">#}
+    <div class="content">
+        {% include 'includes/flash.html' %}
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+              </div>
+              <div class="card-body">
+                <div class="author">
+                  <a href="#">
+                    <img class="avatar border-gray" src="{{ author.get_avatar(150) }}" alt="Аватар">
+                    <h5 class="title">{{ user_tools.onle_line(author) }}</h5>
+                  </a>
+                  <p class="description text-dark">
+                    {{ author.permission_group.name }}
+                    <p>{{ user_tools.online_status(author) }}</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Связанные аккаунты пользователя</strong>
+                </div>
+              <div class="card-body">
+                  {% for ext_service in author.ext_services %}
+                    <a class="btn btn-link btn-info btn-sm" {% if ext_service.service_name == 'discord' %}onclick="Swal.fire('{{ ext_service.user_nickname_service }}');"{% else %}href="https://vk.com/id{{ ext_service.user_id_service }}"{% endif %}>{% if ext_service.service_name == 'discord' %}Discord{% else %}VK{% endif %}</a>
+              {% endfor %}
+              </div>
+            </div>
+              <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Информация о заявке</strong>
+                </div>
+              <div class="card-body">
+                <table class="table">
+                <tbody>
+                {% set answer_model = form_answer_controller.model %}
+                  <tr>
+                    <td>ID</td>
+                    <td>{{ answer_model.id }}</td>
+                  </tr>
+                  <tr>
+                    <td>Техническое название</td>
+                    <td>{{ answer_model.form_technical_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Дата подачи</td>
+                    <td>{{ answer_model.human_date }}</td>
+                  </tr>
+                  <tr>
+                    <td>Текущий статус</td>
+                    <td>{{ answer_model.status.value }}</td>
+                  </tr>
+                  <tr>
+                    <td>Локация подачи</td>
+                    <td>{{ answer_model.location }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+            <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Управление заявкой</strong>
+                </div>
+                {% if answer_model.status.value == "WAIT" or answer_model.status.value == "CHECK" %}
+              <div class="card-body">
+                  {{ form_util.build(conrol_form, htmL_form_class='form-horizontal', hidden_br=true, enable_div=true) }}
+              </div>
+                {% else %}
+                <center>Решение по данной заявке уже вынесено</center>
+                {% endif %}
+            </div>
+            <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Другие заявки пользователя</strong>
+                </div>
+              <div class="card-body">
+                <table class="table">
+                {% if other_form %}
+                    <tbody>
+                    {% for other_form in form_answer_controller.get_user_answers(10)  %}
+                      <tr>
+                        <td>{{ other_form.label }}#{{ other_form.id }}</td>
+                        <td><a href="{{ url_for('panel.form_view', answer_id=other_form.id) }}" class="btn btn-link btn-outline-info" target="_blank">Открыть</a></td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                {% else %}
+                    <center>Других заявок не найдено</center>
+                {% endif %}
+              </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Ответы по форме</h5>
+              </div>
+              <div class="card-body">
+                <table class="table">
+                <thead>
+                  <tr>
+                    <th>Вопрос</th>
+                    <th>Ответ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for form_answer_element in form_answer_controller  %}
+                  <tr>
+                    <td>{{ form_answer_element.label }}</td>
+                    <td>{{ form_answer_element.answer }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

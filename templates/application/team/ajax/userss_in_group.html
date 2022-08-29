@@ -1,0 +1,12 @@
+{% import 'macros/user.html' as user_tools %}
+{% if users %}
+        <div class="row">
+            {% for usr in users %}
+                {{ user_tools.profile_card(usr) }}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="tab-pane text-center">
+            <h3 class="text-muted">Пользователей с такой группой не найдено</h3>
+        </div>
+{% endif %}

@@ -1,0 +1,10 @@
+from .api import api as api_blueprint
+from .auth import auth as auth_blueprint
+from .main import main as main_blueprint
+from .profile import profile as profile_blueprint
+from .gift import gift as gift_blueprint
+from .team import team as team_blueprint
+from .store import store as store_blueprint
+from .panel import panel as adminpanel_blueprint
+from .developers import dev as dev_blueprint
+from .event import events as event_blueprint

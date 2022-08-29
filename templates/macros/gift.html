@@ -1,0 +1,28 @@
+{% import 'macros/badge.html' as badge %}
+{% import 'macros/user.html' as user_util %}
+
+
+{% macro gift_build(user_gift, user) %}
+    {% set impl = user_gift.gift.impl  %}
+<li>
+    <div class="row">
+        <div class="col-md-7 col-7">
+        {% set gift_type, gift_author = impl.author_info %}
+            <h6>Подарок от {% if gift_type == 'special' %}<strong style="color: green">{{ gift_author }}{{ badge.admin() }}</strong>{% else %}<strong>{{ user_util.onle_line(gift_author) }}</strong>{% endif %} <br /><small>{{ user_gift.gift.name }}</small></h6>
+        </div>
+        <div class="col-md-5 col-4">
+            <div class="form-check">
+                {% if user_gift.open %}
+                    <h5 style="color: green">Открыт</h5>
+                {% else %}
+                    <h5 >Не открыт</h5>
+                    {% if user and user_gift.user_id == user.id %}
+                        <a href="{{ url_for('gift.open_gift', user_gift_id=user_gift.id) }}" class="btn btn-outline-success btn-round">Открыть</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</li>
+    <hr />
+{% endmacro %}

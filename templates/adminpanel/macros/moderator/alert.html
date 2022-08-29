@@ -1,0 +1,52 @@
+{% import 'macros/user.html' as user_tools %}
+
+{% macro build_tabel(alerts) %}
+    {% if alerts %}
+    <table class="table">
+                    <thead class="">
+                      <th>
+                        ID
+                      </th>
+                      <th>
+                        Выдал
+                      </th>
+                      <th>
+                        Дата выдачи
+                      </th>
+                      <th>
+                        Статус
+                      </th>
+                      <th class="text-right">
+                        Действия
+                      </th>
+                    </thead>
+                    <tbody>
+                    {% for alert in alerts %}
+                      <tr>
+                        <td>
+                          #{{ alert.id }}
+                        </td>
+                        <td>
+                          {{ user_tools.onle_line(alert.author_user) }}
+                        </td>
+                        <td>
+                          {{ alert.create_date }}
+                        </td>
+                        <td>
+                            {% if alert.is_active %}
+                            <a class="text-success">Активно</a>
+                            {% else %}
+                            Не активно
+                            {% endif %}
+                        </td>
+                        <td class="text-right">
+                          <a class="btn btn-info btn-sm" href="{{ url_for('panel.moderation_view_alert', alert_id=alert.id) }}">Посмотреть</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+    {% else %}
+    <p>Записей не найдено</p>
+    {% endif %}
+{% endmacro %}

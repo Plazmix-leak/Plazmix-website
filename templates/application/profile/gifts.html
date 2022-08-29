@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% import 'macros/gift.html' as gift_helper %}
+{% block title %}Подарки{% endblock %}
+{% block body %}
+    <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/16.png') }}');">
+    {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Мои подарки</h1>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section">
+      <div class="container">
+          <div class="row">
+            <h4 class="title"><small>Мои подарки</small></h4>
+            <div class="table-responsive">
+            {% if gifts %}
+            <ul class="list-unstyled follows">
+                {% for gift in gifts %}
+                    {{ gift_helper.gift_build(gift, user) }}
+                {% endfor %}
+            </ul>
+            {% else %}
+            <center><h6>У вас нет подарков :(</h6></center>
+            {% endif %}
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+{% endblock %}

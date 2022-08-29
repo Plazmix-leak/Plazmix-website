@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% block title %}О нас{% endblock %}
+{% import 'macros/og_and_discord.html' as og %}
+{% block og_elements %}
+    {{ og.build_og_meta(title='Plazmix Network', image=url_for('static', filename='img/background/landing/1.png'),
+            description='Plazmix - с любовью к игрокам') }}
+{% endblock %}
+{% block body %}
+      <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/25.png') }}?v=1');">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Plazmix Network</h1>
+        <h6>Сейчас мы расскажем о себе.</h6>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section">
+      <div class="container">
+        <h3 class="title-uppercase">Что такое Plazmix.</h3>
+          <br>
+        <h6>Привет дорогой игрок, рады приветствовать тебя на нашем игровом проекте!</h6>
+        <h6>На сервере ты встретишь множество мини режимов создаются полностью нашим разработчиком, поэтому они будут довольно уникальными. PLAZMIX создаётся уже долгое время, за которое было добавленно много различных ништяков, которые вы сможете оценить! Ждём вас на нашем проекте! </h6>
+          <br>
+          <br>
+        <h3 class="title-uppercase">С <i class="fa fa-heart heart"></i>&nbsp;к игрокам.</h3>
+          <br>
+        <h6>На нашем проекте вы можете играть и прокачивать своего персонажа без доната, ведь мы не стремимся заработать на игроках. Наша главная цель это сделать качественный и интересный проект</h6>
+        <h2 class="text-center creators">Создатели</h2>
+          <br>
+      <br>
+        <div class="row">
+              <div class="staff">
+              <div class="col-md-12 data" id="OWNER">
+              <div class="row">
+              <div class="col-md-10 ml-auto mr-auto">
+                  <div class="tab-pane text-center">
+                      <div class="uil-reload-css" style="">
+                        <div></div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+<script src="{{  url_for('static', filename='js/use/staff.js') }}?v=0.0.1.1" type="text/javascript"></script>
+{% endblock %}

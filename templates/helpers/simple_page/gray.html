@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block title %}{{ simple_page.page_title }}{% endblock %}
+{% block body %}
+<div class="wrapper">
+    <div class="page-header page-header-xs settings-background" style="background-image: url({{ url_for('static', filename="img/background/login/24.png") }});">
+        {% include 'includes/flash.html' %}
+      <div class="filter"></div>
+    </div>
+    <div class="profile-content section section-gray">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+          <h3 class="text-center text-black-50 text-uppercase">
+              <label>{{ simple_page.title }}</label>
+          </h3>
+          <br>
+              {% if simple_page.comment %}
+                <h5 class="text-center text-dark">
+                    {{ simple_page.comment|safe }}
+                </h5>
+                {% endif %}
+          <br>
+              {% if simple_page.form %}
+                    {{ form_util.build(simple_page.form, htmL_form_class='settings-form', hidden_br=true, enable_div=true) }}
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

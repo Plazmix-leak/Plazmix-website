@@ -1,0 +1,32 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'adminpanel/macros/moderator/alert.html' as moderator_tools %}
+{% block title %}{{ base_form.label }}{% endblock %}
+{% block  body %}
+    <input type="hidden" id="formType" value="{{ base_form.technical_name }}">
+    <input type="hidden" id="formStatus" value="{{ form_status }}">
+<div class="content">
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="title">{{ base_form.label }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <table id="formList" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th class="disabled-sorting">Название</th>
+                              <th class="disabled-sorting text-right">Действия</th>
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/formList.js') }}?v=1.0"></script>
+{% endblock %}

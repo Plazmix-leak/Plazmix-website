@@ -1,0 +1,91 @@
+{% extends 'adminpanel/extend.html' %}
+{% block title %}Главная{% endblock %}
+{% block  body %}
+<div class="content">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-7 col-md-12">
+                    <div class="numbers">
+                      <p class="card-category">Аккаунтов создано</p>
+                      <p class="card-title">{{ server_information.account_count_human }}<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-7 col-md-12">
+                    <div class="numbers">
+                      <p class="card-category">Текущий онлайн</p>
+                      <p class="card-title">{{ current_online }}<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-7 col-md-12">
+                    <div class="numbers">
+                      <p class="card-category">Пик онлайна за сегодня</p>
+                      <p class="card-title">{{ today_peak }}<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-7 col-md-12">
+                    <div class="numbers">
+                      <p class="card-category">Запросов к API за сегодня</p>
+                      <p class="card-title">{{ api_sum }}<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-title">Онлайн за последние 24ч</h5>
+              </div>
+              <div class="card-body">
+                <canvas id="chartOnlineLastDay"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card ">
+              <div class="card-header ">
+                <h4 class="card-title">Входов за последние 24 часа</h4>
+              </div>
+              <div class="card-body ">
+                <canvas id="serverJoinsLastDay"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/metric/helpers.js') }}?v=0.0.2"></script>
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/index.js') }}?v=1.0.7"></script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% block title %}API приложение{% endblock %}
+{% import 'macros/dev.html' as dev_tools %}
+{% block body %}
+    <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/16.png') }}');">
+    {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Информация о Api приложении - {{ app.name }}</h1>
+          <br>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+            <div class="table-responsive">
+            <ul class="list-unstyled follows">
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <td><h5>Name</h5></td>
+                    <td>{{ app.name }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>UUID</h5></td>
+                    <td>{{ app.uuid }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Day Limit</h5></td>
+                    <td>{{ app.limit }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Access Level</h5></td>
+                    <td>{{ app.access_level }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Token</h5></td>
+                    <td>{{ app.token }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ul>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+{% endblock %}

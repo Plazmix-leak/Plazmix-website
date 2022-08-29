@@ -1,0 +1,39 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block title %}{{ simple_page.page_title }}{% endblock %}
+{% block body %}
+    <div class="content">
+    {% include 'includes/flash.html' %}
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="title">{{ simple_page.title }}</h4>
+                    </div>
+                    <div class="card-body">
+                            {% if simple_page.comment %}
+                            <h5 class="text-black-50 text-center">
+                                {{ simple_page.comment|safe }}
+                            </h5>
+                            {% endif %}
+                        {% if simple_page.form %}
+                            {{ form_util.build(simple_page.form, htmL_form_class='form-horizontal', hidden_br=true, enable_div=true) }}
+                        {% endif %}
+                    </div>
+                    {% if simple_page.buttons %}
+                    <div class="card-footer">
+                    <hr>
+                    <div class="button-container">
+                      <div class="row">
+                          {% for button in simple_page.buttons %}
+                            <a class="{{ button.style_class }}" href="{{ button.url }}">{{ button.text }}</a>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

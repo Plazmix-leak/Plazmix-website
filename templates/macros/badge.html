@@ -1,0 +1,16 @@
+{# one badge #}
+{% macro badge_generate(badge, profile) %}
+    <a data-toggle="tooltip" data-placement="right" title="{{ badge.get_title(profile) }}"><i class="{{ badge.icon }}" style="color: {{ badge.color }};"></i></a>
+{% endmacro %}
+
+
+{# user badge generator #}
+{% macro profile_badges(profile) %}
+    {% for badge in profile.badges_list %}
+        {{ badge_generate(badge, profile) }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro admin() %}
+    <a data-toggle="tooltip" data-placement="right" href="{{ url_for('main.badge_crown') }}" title="Это специальный бейдж для аккаунтов администрации проекта"><i class="fad fa-crown fa-1x" style="color: #FFD700;"></i></a>
+{% endmacro %}

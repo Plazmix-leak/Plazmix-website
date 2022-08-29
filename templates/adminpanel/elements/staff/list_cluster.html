@@ -1,0 +1,34 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'adminpanel/macros/moderator/alert.html' as moderator_tools %}
+{% block title %}Персонал проекта ({{ cluster }}){% endblock %}
+{% block  body %}
+    <input type="hidden" id="staffCluster" value="{{ cluster }}">
+<div class="content">
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="title">Персонал</h4>
+                    </div>
+                    <div class="card-body">
+                        <table id="staffTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th class="disabled-sorting">Никнейм</th>
+                              <th class="disabled-sorting">Группа</th>
+                              <th class="disabled-sorting">Уровень</th>
+                              <th class="disabled-sorting">Онлайн</th>
+                              <th class="disabled-sorting text-right">Действия</th>
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/staffCluster.js') }}?v=1.0.1"></script>
+{% endblock %}

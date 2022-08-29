@@ -1,0 +1,98 @@
+  <nav class="navbar navbar-expand-lg fixed-top nav-down navbar-transparent" color-on-scroll="500">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}" rel="tooltip" title="PlazmixNetwork" data-placement="bottom" target="_blank">
+          Plazmix Network
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" data-nav-image="./assets/img/blurred-image-1.jpg" data-color="orange">
+        <ul class="navbar-nav ml-auto">
+            <li class="dropdown nav-item">
+            <a href="https://f.plazmix.net" class="nav-link">
+              Форум </a>
+            </li>
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+              Помощь </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-danger">
+              <a href="https://vk.me/plazmixnetwork" class="dropdown-item">
+                Тех. Поддержка
+              </a>
+              <a href="https://plzm.xyz/discord" class="dropdown-item">
+                Discord
+              </a>
+              <a href="{{ url_for('main.pages') }}" class="dropdown-item">
+                Информация
+              </a>
+                <a href="{{ url_for('profile.search') }}" class="dropdown-item">
+                Поиск игроков
+              </a>
+                <a href="{{ url_for('main.page', page_uri='rules') }}" class="dropdown-item">
+                Правила проекта
+              </a>
+            </div>
+          </li>
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown">
+              Донат
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-danger" aria-labelledby="navbarDropdownMenuLink">
+{#              <a class="dropdown-item" data-scroll="true" href="#">#}
+{#                Подписка плюс#}
+{#              </a>#}
+              <a class="dropdown-item" data-scroll="true" data-id="#features" href="{{ url_for('store.index') }}">
+                Магазин
+              </a>
+            </div>
+          </li>
+          <li class="dropdown nav-item">
+            <a href="{{ url_for('team.index') }}" class="dropdown-toggle nav-link" id="navbarDropdownMenuLink1" data-toggle="dropdown">
+              Персонал
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-danger" aria-labelledby="navbarDropdownMenuLink1">
+              <a class="dropdown-item" href="{{ url_for('team.index') }}">
+                Вступить
+              </a>
+              <a class="dropdown-item" href="{{ url_for('team.staff_list') }}">
+                Список
+              </a>
+            </div>
+          </li>
+            {% if not user %}
+          <li class="nav-item">
+            <a class="btn btn-round btn-danger" href="{{ url_for('auth.login') }}" target="_self">
+              Войти
+            </a>
+          </li>
+            {% else %}
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('profile.user_profile') }}" class="nav-link navbar-brand" data-toggle="dropdown" width="30" height="30" aria-expanded="false">
+                      <div class="profile-photo-small">
+                        <img src="{{ user.get_avatar(150) }}" alt="Аватар" class="img-circle img-responsive img-no-padding">
+                      </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-danger">
+                      <a class="dropdown-item" href="{{ url_for('profile.user_profile') }}">Профиль</a>
+                      <a class="dropdown-item" href="{{ url_for('profile.settings') }}">Настройки</a>
+                      <a class="dropdown-item" href="{{ url_for('profile.gifts') }}">Подарки</a>
+                      <a class="dropdown-item" href="{{ url_for('profile.applications') }}">Заявки</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ url_for('profile.wallet') }}">Кошелёк</a>
+                      <div class="dropdown-divider"></div>
+                        {% if permissions.check(permissions.PANEL_ACCESS, user) %}
+                      <a class="dropdown-item" href="{{ url_for('panel.main') }}">Панель</a>
+                      <div class="dropdown-divider"></div>
+                            {% endif %}
+                      <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Выйти</a>
+                    </ul>
+                  </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>

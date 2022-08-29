@@ -1,0 +1,130 @@
+{% extends 'main.html' %}
+{% import 'macros/badge.html' as badge %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'macros/og_and_discord.html' as og %}
+{% import 'macros/tools.html' as tool %}
+{% block og_title %}Профиль игрока {{ profile.bukkit.nickname }}{% endblock %}
+{% block og_elements %}
+    {{ og.build_og_meta(title='Профиль игрока ' + profile.bukkit.nickname,
+      image=profile.get_avatar(300), og_type="profile",
+            description="Профиль игрока " + profile.bukkit.nickname + " на проекте Plazmix Network") }}
+<meta property="og:profile:username" content="{{ profile.bukkit.nickname }}" />
+{% endblock %}
+{% block body %}
+    <input type="hidden" id="userUuid" value="{{ profile.uuid }}">
+    <body class="profile-page sidebar-collapse">
+     <div class="page-header page-header-xs" data-parallax="true" style="background-image: url({{  url_for('static', filename='img/background/login/12.png') }});">
+         {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+  </div>
+  <div class="wrapper">
+    <div class="profile-content section">
+      <div class="container">
+        <div class="row">
+          <div class="profile-picture">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="card-body">
+              <div class="fileinput-new img-no-padding">
+                <center><img src="{{ profile.get_avatar(300) }}" alt="Скин"></center>
+              </div>
+              <div class="name">
+                <h4 class="title text-center"><strong>{{ profile.bukkit.nickname }}{{ badge.profile_badges(profile) }}</strong><br />
+                {% set _profile_group = profile.permission_group  %}
+                    <small style="color:{{ _profile_group.html_color }};">{{ _profile_group.name }}</small><br />
+                    <small>Уровень: <a style="color: green">{{ profile.bukkit.level }}</a></small><br />
+                    {{ user_tools.online_status(profile) }}
+                </h4>
+              </div>
+                    </div>
+          </div>
+        </div>
+        </div>
+      <div class="row">
+          <div class="col-md-6 ml-auto mr-auto text-center">
+            {% for ext_service in profile.ext_services %}
+                {% if ext_service.visible %}
+                    <a class="btn btn-link btn-info btn-sm" {% if ext_service.service_name == 'discord' %}onclick="Swal.fire('{{ ext_service.user_nickname_service }}');"{% else %}href="https://vk.com/id{{ ext_service.user_id_service }}"{% endif %}>{{ tool.object_to_icon(ext_service.service_name, icon_size='fa-3x') }}</a>
+                {% endif %}
+              {% endfor %}
+          </div>
+      </div>
+      {% if user and profile == user %}
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto text-center">
+            <br />
+            <a class="btn btn-outline-default btn-round" href="{{ url_for('profile.settings') }}"><i class="fa fa-cog"></i> Настройки </a>
+          </div>
+        </div>
+      {% endif %}
+      {% if user and permissions.check(permissions.PANEL_ACCESS, user) %}
+                  <div class="row">
+          <div class="col-md-6 ml-auto mr-auto text-center">
+            <br />
+            <a class="btn btn-outline-primary btn-round" href="{{ profile.panel_profile_link }}" target="_blank"><i class="fa fa-heart"></i> Открыть в админке </a>
+          </div>
+        </div>
+      {% endif %}
+        <br />
+        <div class="nav-tabs-navigation">
+          <div class="nav-tabs-wrapper">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#friends" role="tab">Друзья</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#achievements" role="tab">Ачивки</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#gifts" role="tab">Подарки</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="friends" role="tabpanel">
+              <div class="row">
+              <div class="col-md-10 ml-auto mr-auto">
+                  <div class="tab-pane text-center">
+                      <div class="uil-reload-css" style="">
+                        <div></div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane text-center" id="gifts" role="tabpanel">
+              <div class="row" id="giftList">
+              <div class="col-md-10 ml-auto mr-auto">
+                  <div class="tab-pane text-center">
+                      <div class="uil-reload-css" style="">
+                        <div></div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane text-center" id="achievements" role="tabpanel">
+              <div class="row" id="achievementsList">
+              <div class="col-md-10 ml-auto mr-auto">
+                  <div class="tab-pane text-center">
+                                        <div class="tab-pane text-center">
+                      <div class="uil-reload-css" style="">
+                        <div></div>
+                        </div>
+                  </div>
+
+
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </body>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='js/use/profile.js') }}?v=0.0.2.4" type="text/javascript"></script>
+{% endblock %}

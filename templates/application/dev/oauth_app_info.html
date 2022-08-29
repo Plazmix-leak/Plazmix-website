@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% block title %}Мои команды{% endblock %}
+{% import 'macros/dev.html' as dev_tools %}
+{% block body %}
+    <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/15.png') }}');">
+    {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>Информация о Oauth2 приложении - {{ app.name }}</h1>
+          <br>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="row">
+            <div class="table-responsive">
+            <ul class="list-unstyled follows">
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <td><h5>Name</h5></td>
+                    <td>{{ app.name }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Client ID</h5></td>
+                    <td>{{ app.client_id }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Client Secret</h5></td>
+                    <td>{{ app.client_secret }}</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Response Type</h5></td>
+                    <td>code</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Scope</h5></td>
+                    <td>uuid</td>
+                  </tr>
+                  <tr>
+                    <td><h5>Oauth URL</h5></td>
+                    <td>{{ url_for('auth.login_oauth_authorize') }}?response_type=code&client_id={{ app.client_id }}&scope=uuid</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ul>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+{% endblock %}

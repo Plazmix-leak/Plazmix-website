@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+{% block navabar %}
+{% endblock %}
+{% import 'macros/og_and_discord.html' as og %}
+{% block og_elements %}
+    {{ og.build_og_meta(title='Plazmix Staff Team', image=url_for('static', filename='img/background/landing/2.png'),
+            description='Вступи в ряды команды проекта Plazmix!
+            Не стесняйся подавай заявку на итересующую тебя должность!') }}
+{% endblock %}
+{% block body %}
+<div class="header-2">
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+        <div class="container">
+          <a class="navbar-brand mb-0" href="{{ url_for('main.index') }}">Plazmix Staff Team</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent2" aria-expanded="false">
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+            <ul class="navbar-nav ml-auto">
+                <a href="{{ url_for('main.page', page_uri='rules') }}" class="btn btn-link btn-neutral">Правила</a>
+                <a href="https://vk.me/staffplazmix" class="btn btn-link btn-neutral">Поддержка</a>
+              <a href="https://discord.io/plazmix" target="_blank" class="btn btn-link btn-neutral"><i class="fab fa-discord fa-2x"></i></a>
+              <a href="https://vk.com/staffplazmix" target="_blank" class="btn btn-link btn-neutral"><i class="fab fa-vk fa-2x"></i></a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<div class="page-header" style="background-image: url('{{  url_for('static', filename='img/background/landing/3.png') }}');">
+        <div class="filter"></div>
+        <div class="content-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="title">Вступи в нашу комманду</h1>
+                <h5 class="description">Подай заявку на интересующую тебя должность ниже. Наши администраторы обработают твою заявку и ответят тебе в течении 72 часов, пожалуйста, не надо спамить в наши группы с вопросами по вашей заявке</h5>
+                <br />
+              </div>
+              <div class="col-md-10 ml-auto mr-auto">
+                <div class="card-form-horizontal no-transition">
+                  <div>
+                    <form method="" action="">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <a class="btn btn-success btn-success btn-block" href="{{ url_for('team.form', technical_name='youtube') }}">Ютубер</a>
+                        </div>
+                        <div class="col-md-4">
+                          <a class="btn btn-warning btn-block" href="{{ url_for('team.form', technical_name='builder') }}">Билдер</a>
+                        </div>
+                        <div class="col-md-4">
+                          <a href="{{ url_for('team.form', technical_name='moderation') }}" class="btn btn-danger btn-block">Модератор</a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'adminpanel/extend.html' %}
+{% block title %}История платежей{% endblock %}
+{% block  body %}
+<div class="content">
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="title">История платежей</h4>
+                    </div>
+                    <div class="card-body">
+                        <table id="paymentHistory" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th class="disabled-sorting">Id</th>
+                              <th class="disabled-sorting">Пользователь</th>
+                              <th class="disabled-sorting">Сумма</th>
+                              <th class="disabled-sorting">Комментарий</th>
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{{  url_for('static', filename='ext/adminpanel/js/use/payment.js') }}?v=1.0.2"></script>
+{% endblock %}

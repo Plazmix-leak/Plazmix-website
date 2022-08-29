@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% import 'macros/user.html' as user_util %}
+{% block title %}{{ content.title }}{% endblock %}
+{% block body %}
+    <div class="page-header page-header-small" style="background-image: url('{{  url_for('static', filename='img/background/login/8.png') }}?v=1');">
+    {% include 'includes/flash.html' %}
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container">
+        <h1>{{ content.title }}</h1>
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-gray">
+      <div class="container">
+          <div class="article-content">
+              {{ content.content|safe }}
+            </div>
+          <p>Последние редактирование {{ content.human_date }}, автор {{ user_util.onle_line(content.author) }}</p>
+          </div>
+      </div>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% import 'macros/user.html' as user_tools %}
+{% set friend_list = profile.friends %}
+    {% if friend_list %}
+        <div class="row">
+            {% for friend in friend_list %}
+                {{ user_tools.profile_card(friend) }}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="tab-pane text-center">
+            <h3 class="text-muted">Нет друзей :(</h3>
+        </div>
+{% endif %}

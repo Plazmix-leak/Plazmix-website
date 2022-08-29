@@ -1,0 +1,49 @@
+{% macro build_product_cls(product_category, product_cls) %}
+    {% set final_price = product_category.get_final_price(product_cls) %}
+    <div class="col-md-3">
+    <div class="modal fade" id="productModal_{{ product_cls.technical_name }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-notice">
+        <div class="modal-content">
+          <div class="modal-header no-border-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h5 class="modal-title" id="myModalLabel">{{ product_cls.name }}</h5>
+          </div>
+          <div class="modal-body">
+              {{ product_cls.html|safe }}
+          </div>
+          <div class="modal-footer">
+              {% if final_price != -1 %}
+            <a href="{{ url_for('store.buy_group', technical_name=product_cls.technical_name) }}" class="btn btn-success btn-link">Купить за {{ final_price }} ₽</a>
+                  {% else %}
+                  <a href="#" class="btn btn-primary btn-link">У вас есть этот донат или группа выше! </a>
+              {% endif %}
+{#            <a href="{{ url_for('store.buy_product', product_id=product_cls.technical_name) }}" class="btn btn-warning btn-link">Купить в подарок за {{ product_cls.price }} ₽</a>#}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-pricing" data-background="image" style="background-image: url('{{ product_cls.image }}')">
+    <div class="filter"></div>
+        <div class="card-body">
+            <h4 class="card-category">{{ product_cls.name }}</h4>
+        {% if product_cls.have_active_sale %}
+        <h5 class="card-just-text"><span class="badge badge-pill badge-success">СКИДКА {{ product_cls.action_size }}%</span></h5>
+        {% endif %}
+                <div class="card-icon">
+                </div>
+            <h3 class="card-title"><strong>{% if final_price != -1 %}
+                {% if product_cls.have_active_sale %}
+                    <strike>{{ product_cls.raw_price }}</strike>
+                {% endif %}
+                {{ final_price }} ₽
+            {% else %}
+                Уже куплено
+            {% endif %}</strong></h3>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#productModal_{{ product_cls.technical_name }}">Подробнее</button>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endmacro %}

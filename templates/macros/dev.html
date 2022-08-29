@@ -1,0 +1,30 @@
+
+{% macro get_team_badge(team) %}
+    {% if team.level == 'partner' %}
+    <a data-toggle="tooltip" data-placement="right" title="Команда {{ team.name }} явялется технологическим партнёром Plazmix Network"><i class="fas fa-infinity fa-1x" style="color: #4682B4;"></i></a>
+    {% elif team.level == 'verification_partner' %}
+    <a data-toggle="tooltip" data-placement="right" title="Команда {{ team.name }} явялется верифицированным технологическим партнёром Plazmix Network"><i class="fas fa-badge-check fa-1x" style="color: green;"></i></a>
+    {% elif team.level == 'official' %}
+    <a data-toggle="tooltip" data-placement="right" title="Официальная команда Plazmix Network"><i class="fad fa-crown fa-1x" style="color: #FFD700;"></i></a>
+    {% endif %}
+{% endmacro %}
+
+{% macro get_app_badge(app) %}
+    {% set team = app.team %}
+    {% if team.level == 'partner' %}
+    <a data-toggle="tooltip" data-placement="right" title="Приложение {{ app.name }} принадлежит технологическому партнёру {{ team.name }}"><i class="fas fa-infinity fa-1x" style="color: #4682B4;"></i></a>
+    {% elif team.level == 'verification_partner' %}
+    <a data-toggle="tooltip" data-placement="right" title="Приложение {{ app.name }} принадлежит верифицированному технологическому партнёру {{ team.name }}"><i class="fas fa-badge-check fa-1x" style="color: green;"></i></a>
+    {% elif team.level == 'official' %}
+    <a data-toggle="tooltip" data-placement="right" title="Приложение {{ app.name }} принадлежит Plazmix Network"><i class="fad fa-crown fa-1x" style="color: #FFD700;"></i></a>
+    {% endif %}
+{% endmacro %}
+
+{% macro app_title(app) %}
+    {{ app.name }} {{ get_app_badge(app) }}
+{% endmacro %}
+
+
+{% macro team_title(team) %}
+    {{ team.name }} {{ get_team_badge(team) }}
+{% endmacro %}

@@ -1,0 +1,58 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block title %}Поиск пользователей{% endblock %}
+{% block  body %}
+    <div class="content">
+        {% include 'includes/flash.html' %}
+        <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card">
+                    {{ form_util.build(form) }}
+                <br>
+                <div class="text-center">
+                    {% if not users %}
+                    <h5>Задан пустой поисковой запрос или ничего не найдено</h5>
+                    {% else %}
+                        <table class="table">
+                    <thead class="">
+                      <th>
+                        Id
+                      </th>
+                      <th>
+                        Никнейм
+                      </th>
+                      <th>
+                        Привелегия
+                      </th>
+                      <th>
+                        Действие
+                      </th>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                      <tr>
+                       <td>
+                          {{ user.id }}
+                        </td>
+                        <td>
+                          {{ user.bukkit.nickname }}
+                        </td>
+                        <td>
+                          {{ user.permission_group.name }}
+                        </td>
+                        <td>
+                            <a class="btn btn-link btn-outline-info" target="_blank" href="{{ url_for('panel.user_information', user_uuid=user.uuid) }}">Информация</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

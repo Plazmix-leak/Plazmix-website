@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% import 'macros/badge.html' as badge %}
+{% macro profile_search_card(profile) %}
+    <li>
+        <div class="row">
+            <div class="col-md-2 col-3">
+                <img src="{{ profile.get_avatar(150) }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+            </div>
+            <div class="col-md-6 col-4 description">
+                <h5>{{ profile.bukkit.nickname }}{{ badge.profile_badges(profile) }}<br>
+                    {% set _profile_group = profile.permission_group  %}
+                    <small style="color: {{ _profile_group.html_color }}">{{ _profile_group.name }}</small>
+                </h5>
+            </div>
+            <div class="col-md-2 col-2">
+                <a class="btn btn-just-icon btn-round btn-outline-danger btn-tooltip" href="{{ url_for('profile.user_profile', user_uuid=profile.uuid) }}" rel="tooltip" title="Открыть профиль"><i class="fad fa-external-link-alt"></i></a>
+            </div>
+        </div>
+    </li>
+{% endmacro %}
+{% block title %}Поиск{% endblock %}
+{% block body %}
+    <body class="search-page sidebar-collapse">
+    {% include 'includes/flash.html' %}
+    <div class="wrapper">
+    <div class="main">
+      <div class="section section-white section-search">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-12 ml-auto mr-auto text-center">
+
+              <form role="search" class="form-inline search-form" method="get">
+                <div class="input-group no-border">
+                  <span class="input-group-addon addon-xtreme no-border" id="basic-addon1"><i class="fa fa-search"></i></span>
+                  <input name="q" type="text" class="form-control input-xtreme no-border" placeholder="Поиск" aria-describedby="basic-addon1" {% if q %}value="{{ q }}"{% endif %}>
+                </div>
+              </form>
+
+              <ul class="list-unstyled follows">
+              {% if result_profiles %}
+                {% for profile in result_profiles %}
+                    {{ profile_search_card(profile) }}
+                {% endfor %}
+              {% else %}
+              <h3>Ничего не найдено :(</h3>
+              {% endif %}
+              </ul>
+                <div class="text-missing">
+                <h5 class="text-muted">Если вы не нашли пользователя которого искали, то вам стоит уточнить поисковый запрос </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </body>
+{% endblock %}

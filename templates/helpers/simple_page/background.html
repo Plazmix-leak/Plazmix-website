@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block title %}{{ simple_page.page_title }}{% endblock %}
+{% block body %}
+    <body class="login-page full-screen sidebar-collapse">
+      <div class="wrapper">
+    <div class="page-header" style="background-image: url('{{ background }}');">
+      <div class="filter"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+            <div class="card card-register" style="color: black;">
+              <h3 class="card-title text-uppercase text-dark">{{ simple_page.title }}</h3>
+                {% include 'includes/flash.html' %}
+                {% if simple_page.icon %}
+                <br>
+                    <center><i class="{{ simple_page.icon }}" style="color: {{ simple_page.icon_color }};"></i></center>
+                <br>
+                {% endif %}
+                {% if simple_page.comment %}
+                <h5 class="text-center text-dark">
+                    {{ simple_page.comment|safe }}
+                </h5>
+                {% endif %}
+                {% if simple_page.form %}
+                    {{ form_util.build(simple_page.form, "register-form") }}
+                {% endif %}
+                {% for button in simple_page.buttons %}
+                    <a class="{{ button.style_class }}" href="{{ button.url }}">{{ button.text }}</a>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="demo-footer text-center">
+          <h6>&copy; <script>
+              document.write(new Date().getFullYear())
+            </script>, All rights reserved <i class="fa fa-heart heart"></i> by Plazmix Network</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+    </body>
+{% endblock %}

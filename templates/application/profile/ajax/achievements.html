@@ -1,0 +1,32 @@
+{% for achivement in achivements %}
+    {% if achivement.can_received %}
+    {% set image = url_for('static', filename='img/achievement/achievement_active.png')  %}
+    {% else %}
+        {% set image = url_for('static', filename='img/achievement/achievement_inactive.png')  %}
+    {% endif %}
+           <div class="col-md-3">
+            <div class="card card-pricing" data-background="image" style="background-image: url('{{  image }}')">
+              <div class="card-body">
+                <h6 class="card-category">{{ achivement.achievement.value.description }}</h6>
+                <div class="card-icon">
+                    {% if achivement.can_received %}
+                    <i style="color: lawngreen" class="fas fa-check fa-5x"></i>
+                    {% else %}
+                        <i style="color: firebrick" class="fas fa-times fa-5x"></i>
+                    {% endif %}
+                </div>
+              <h6 class="card-title">{{ achivement.achievement.value.title }}</h6>
+                <p class="card-description">
+                    {% if achivement.can_received %}
+                        <h6>Дата получения: {{ achivement.received_time.strftime('%d.%m.%Y %H:%M') }}</h6>
+                        {% if achivement.achievement.value.multilevel %}
+                            <h6>Уровень: {{ achivement.level }}</h6>
+                            {% endif %}
+                    {% else %}
+                        Ещё не получена
+                    {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+{% endfor %}

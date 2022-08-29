@@ -1,0 +1,117 @@
+{% extends 'adminpanel/extend.html' %}
+{% import 'macros/user.html' as user_tools %}
+{% import 'macros/form_builder.html' as form_util %}
+{% block title %}Профиль игрока {{ player.bukkit.nickname }}{% endblock %}
+{% block  body %}
+    <input type="hidden" id="userUuid" value="{{ player.uuid }}">
+    <div class="content">
+        {% include 'includes/flash.html' %}
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+              </div>
+              <div class="card-body">
+                <div class="author">
+                  <a href="#">
+                    <img class="avatar border-gray" src="{{ player.get_avatar(150) }} alt="Аватар">
+                    <h5 class="title">{{ user_tools.onle_line(player) }}</h5>
+                  </a>
+                  <p class="description text-dark">
+                    {{ player.permission_group.name }}
+                    <p>{{ user_tools.online_status(player) }}</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Связанные аккаунты</strong>
+                </div>
+              <div class="card-body">
+                  {% for ext_service in player.ext_services %}
+                    <a class="btn btn-link btn-info btn-sm" {% if ext_service.service_name == 'discord' %}onclick="Swal.fire('{{ ext_service.user_nickname_service }}');"{% else %}href="https://vk.com/id{{ ext_service.user_id_service }}"{% endif %}>{% if ext_service.service_name == 'discord' %}Discord{% else %}VK{% endif %}</a>
+              {% endfor %}
+              </div>
+            </div>
+          {% if permissions.check(permissions.TECHNICAL_SUPPORT_ACCESS, user) %}
+              <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Тех. Поддержка</strong>
+                </div>
+              <div class="card-body">
+                  {{ form_util.build(form_tp, htmL_form_class='form', hidden_br=true, enable_div=true) }}
+              </div>
+            </div>
+          {% endif %}
+              {% if permissions.check(permissions.USER_CHANGE, user) %}
+            <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Управление</strong>
+                </div>
+              <div class="card-body">
+                  {{ form_util.build(form, htmL_form_class='form-horizontal', hidden_br=true, enable_div=true) }}
+              </div>
+            </div>
+              {% endif %}
+              {% if permissions.check(permissions.ADMIN_ACCESS, user) %}
+            <div class="card">
+                <div class="card-header text-center text-black-50">
+                    <strong>Блокировка</strong>
+                </div>
+              <div class="card-body">
+                  {% if player.block_status %}
+                      <a class="btn btn-block btn-info btn-link" href="{{ url_for('panel.user_unban', user_uuid=player.uuid) }}">Разблокировать аккаунт</a>
+                      {% else %}
+                      <a class="btn btn-block btn-info btn-link" href="{{ url_for('panel.user_ban', user_uuid=player.uuid) }}">Выдать бан</a>
+                      {% endif %}
+              </div>
+            </div>
+              {% endif %}
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Авторизации</h5>
+              </div>
+              <div class="card-body">
+                  <table id="authLogs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                      <tr>
+                          <th class="disabled-sorting sorting_desc">Id</th>
+                          <th class="disabled-sorting">Сервис</th>
+                          <th class="disabled-sorting">Время</th>
+                          <th class="disabled-sorting">ip</th>
+                          <th class="disabled-sorting">Локация</th>
+                      </tr>
+                      </thead>
+                  </table>
+
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Изменения баланса (На данный момент: {{ player.money }} руб.)</h5>
+              </div>
+              <div class="card-body">
+                  <table id="moneyLog" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                      <tr>
+                          <th class="disabled-sorting sorting_desc">Id</th>
+                          <th class="disabled-sorting">Дата</th>
+                          <th class="disabled-sorting">Сумма</th>
+                          <th class="disabled-sorting">Комментарий</th>
+                          <th class="disabled-sorting">ip</th>
+                      </tr>
+                      </thead>
+                  </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+{% block js %}
+     <script src="{{  url_for('static', filename='ext/adminpanel/js/use/user_information.js') }}?v=0.0.5"></script>
+{% endblock %}

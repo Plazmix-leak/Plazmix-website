@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% block title %}Магазин{% endblock %}
+{% import 'macros/store.html' as store %}
+{% import 'macros/og_and_discord.html' as og %}
+{% block og_elements %}
+    {{ og.build_og_meta(title='Plazmix Store', image=url_for('static', filename='img/background/landing/2.png'),
+            description='Покупая донат, вы помогаете проекту жить и развиваться! Спасибо вам!') }}
+{% endblock %}
+{% block body %}
+    <div class="page-header" style="background-image: url('{{  url_for('static', filename='img/background/landing/3.png') }}?v=1');">
+    <div class="filter"></div>
+    <div class="content-center">
+      <div class="container text-center">
+        <h1>Plazmix Store</h1>
+{#        <h3>Скидки 30% на все товары в честь Halloween Update! Действую до 07.11.21</h3>#}
+      <br>
+
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="section section-gray">
+      <div class="container">
+        <h3 class="section-title">Выберите донат</h3>
+          <br>
+          <br>
+        <div class="row">
+            {% for product in products %}
+                {{ store.build_product_cls(products, product.value) }}
+            {% endfor %}
+        </div>
+      </div>
+    </div><!-- section --><!-- section -->
+  </div>
+{% endblock %}
